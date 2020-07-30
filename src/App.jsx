@@ -1,13 +1,16 @@
 import React from 'react'
-import Header from 'cmp/Header'
+import Patron from 'cmp/Patron'
 
 import './App.css'
 
+const patrons = ['bill gates', 'elon musk', 'steve jobs', 'john doe', 'ross geller']
+
 const App = () => (
-  <>
-    <Header />
-    <h1 className="text-green-600">Hello from Ukraine</h1>
-  </>
+  <div className="patron-panel">
+    {patrons.map(patron => (
+      <Patron {...{ patron }} />
+    ))}
+  </div>
 )
 
 export default App
