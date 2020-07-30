@@ -1,12 +1,21 @@
-/* @tailwind base; */
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+html {
+  font-size: 10px;
+  overflow: hidden;
+}
+
 .patron-panel {
   height: 200px;
-  width: 600px;
-  background: rgb(255, 231, 179);
+  background: rgb(252, 200, 88);
+}
+.patron-panel-content {
+  background: rgba(193, 255, 112, 0.5);
 }
 .patron {
-  font-size: 70px;
+  vertical-align: top;
+  display: inline-block;
+  background: rgba(178, 46, 190, 0.5);
 }
