@@ -8,7 +8,8 @@ html {
 #canvas {
   width: 1920px;
   height: 1080px;
-  background: #eee;
+  background: #3dc2d3;
+  /* overflow: hidden; */
 }
 .patron-panel {
   height: 200px;

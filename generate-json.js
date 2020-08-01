@@ -1,7 +1,18 @@
 const fs = require('fs')
+const glob = require('glob')
 
-const testFolder = './public/avatars/'
+const rootFolder = './public/avatars'
 
-fs.readdir(testFolder, (err, files) => {
-  fs.writeFile('./public/avatars.json', JSON.stringify(files), 'utf8', () => {})
-})
+let avatars = {}
+
+glob(
+  '/**/*?(.png|.jpg|.jpeg)',
+  {
+    root: rootFolder,
+    nodir: true
+  },
+  function (er, files) {
+    const clearFiles = files.map(filename => filename.replace(/.+avatars/gi, 'avatars'))
+    fs.writeFile('./public/avatars.json', JSON.stringify(clearFiles), 'utf8', () => {})
+  }
+)

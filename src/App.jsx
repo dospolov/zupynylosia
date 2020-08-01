@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { Button } from 'antd'
-import Patron from 'cmp/Patron'
+import PatronPanel from 'cmp/PatronPanel'
 import html2canvas from 'html2canvas'
 import { saveAs } from 'file-saver'
 
@@ -9,29 +9,22 @@ import './App.css'
 const fetchData = async setPatrons => {
   const response = await fetch('avatars.json')
   const data = await response.json()
-  setPatrons(data)
+  const patrons = data.reduce((acc, path) => {
+    const [, folder, filename] = path.match(/avatars\/(.+)\/(.+)$/)
+    return {
+      ...acc,
+      [folder]: acc[folder]?.length ? [...acc[folder], filename] : [filename]
+    }
+  }, {})
+  setPatrons(patrons)
 }
 
 const App = () => {
-  const [patrons, setPatrons] = useState([])
-  const [fontSize, setFontSize] = useState(10)
-  const [visibility, setVisibility] = useState('hidden')
-  const patronPanelEl = useRef(null)
-  const patronPanelContentEl = useRef(null)
+  const [patrons, setPatrons] = useState({})
 
   useEffect(() => {
     fetchData(setPatrons)
   }, [])
-
-  useEffect(() => {
-    const parentHeight = patronPanelEl.current.offsetHeight
-    const contentHeight = patronPanelContentEl.current.offsetHeight
-    if (parentHeight < contentHeight) {
-      setFontSize(prevFontSize => prevFontSize - 0.1)
-    } else {
-      setVisibility('visible')
-    }
-  })
 
   return (
     <>
@@ -47,18 +40,9 @@ const App = () => {
         Save
       </Button>
       <div id="canvas">
-        <h2 className="p-4 text-6xl">Генерал ЗУПИНИЛОСЯ</h2>
-        <div className="patron-panel" ref={patronPanelEl}>
-          <div
-            className="patron-panel-content"
-            ref={patronPanelContentEl}
-            style={{ visibility }}
-          >
-            {patrons.map((patron, i) => (
-              <Patron key={i} {...{ patron, fontSize, visibility }} />
-            ))}
-          </div>
-        </div>
+        {Object.keys(patrons).map(folder => (
+          <PatronPanel {...{ folder, avatars: patrons[folder] }} />
+        ))}
       </div>
     </>
   )
