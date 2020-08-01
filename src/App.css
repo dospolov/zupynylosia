@@ -4,9 +4,12 @@
 
 html {
   font-size: 10px;
-  overflow: hidden;
 }
-
+#canvas {
+  width: 1920px;
+  height: 1080px;
+  background: #eee;
+}
 .patron-panel {
   height: 200px;
   /* background: rgb(252, 200, 88); */

@@ -1,5 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react'
+import { Button } from 'antd'
 import Patron from 'cmp/Patron'
+import html2canvas from 'html2canvas'
+import { saveAs } from 'file-saver'
 
 import './App.css'
 
@@ -31,21 +34,33 @@ const App = () => {
   })
 
   return (
-    <div
-      className="patron-panel"
-      ref={patronPanelEl}
-      // style={{ padding: `${fontSize / 4}rem` }}
-    >
-      <div
-        className="patron-panel-content"
-        ref={patronPanelContentEl}
-        style={{ visibility }}
+    <>
+      <Button
+        onClick={() => {
+          html2canvas(document.querySelector('#canvas')).then(canvas => {
+            let imageData = canvas.toDataURL('image/png', 1.0)
+            saveAs(imageData, 'poster.png')
+          })
+        }}
+        className="m-4"
       >
-        {patrons.map((patron, i) => (
-          <Patron key={i} {...{ patron, fontSize, visibility }} />
-        ))}
+        Save
+      </Button>
+      <div id="canvas">
+        <h2 className="p-4 text-6xl">Генерал ЗУПИНИЛОСЯ</h2>
+        <div className="patron-panel" ref={patronPanelEl}>
+          <div
+            className="patron-panel-content"
+            ref={patronPanelContentEl}
+            style={{ visibility }}
+          >
+            {patrons.map((patron, i) => (
+              <Patron key={i} {...{ patron, fontSize, visibility }} />
+            ))}
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
