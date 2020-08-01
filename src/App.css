@@ -9,13 +9,19 @@ html {
 
 .patron-panel {
   height: 200px;
-  background: rgb(252, 200, 88);
+  /* background: rgb(252, 200, 88); */
+  padding: 0.5rem;
 }
 .patron-panel-content {
-  background: rgba(193, 255, 112, 0.5);
+  background: #f3f3f3;
+  /* background: rgba(193, 255, 112, 0.5); */
 }
 .patron {
   vertical-align: top;
   display: inline-block;
-  background: rgba(178, 46, 190, 0.5);
+  background: #ddd;
+  /* background: rgba(178, 46, 190, 0.5); */
+}
+.ant-avatar-image {
+  vertical-align: sub;
 }

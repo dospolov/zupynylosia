@@ -11,6 +11,9 @@ export default ({ patron, fontSize, visibility }) => (
       padding: `${fontSize / 5}rem ${fontSize / 2}rem`
     }}
   >
-    <Avatar size={fontSize * 10}>{patron}</Avatar> {patron}
+    <Avatar size={fontSize * 12} src={`avatars/${patron}`}>
+      {patron.replace(/\.jpg|\.png/gi, '')}
+    </Avatar>{' '}
+    {patron.replace(/\.jpg|\.png/gi, '')}
   </span>
 )
